@@ -1,0 +1,6 @@
+{
+  "name": "AquaSense",
+  "description": "Household Water Conservation Analyzer. Small Changes. A Bigger Tomorrow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

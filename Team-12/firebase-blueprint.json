@@ -1,0 +1,125 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "email", "displayName"]
+    },
+    "Household": {
+      "title": "Household",
+      "description": "Household settings and configurations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "memberCount": { "type": "number" },
+        "dailyTargetLitres": { "type": "number" },
+        "hasRO": { "type": "boolean" },
+        "reusesROReject": { "type": "boolean" },
+        "hasGarden": { "type": "boolean" },
+        "waterSource": { "type": "string", "maxLength": 50 },
+        "bathHabit": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "name", "memberCount", "dailyTargetLitres"]
+    },
+    "HouseholdMember": {
+      "title": "HouseholdMember",
+      "description": "Individual member of the household",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "maxLength": 50 },
+        "color": { "type": "string", "maxLength": 30 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "name"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Logged water usage event",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "activityId": { "type": "string", "maxLength": 64 },
+        "activityName": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 50 },
+        "litres": { "type": "number" },
+        "memberId": { "type": "string", "maxLength": 128 },
+        "memberName": { "type": "string", "maxLength": 100 },
+        "date": { "type": "string", "maxLength": 20 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "activityName", "category", "litres", "date"]
+    },
+    "DailyUsageLog": {
+      "title": "DailyUsageLog",
+      "description": "Aggregated or manually logged daily total",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "totalLitres": { "type": "number" },
+        "notes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "date", "totalLitres"]
+    },
+    "Challenge": {
+      "title": "Challenge",
+      "description": "User challenges and water saving milestones",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 300 },
+        "targetSavingLitres": { "type": "number" },
+        "currentSavingLitres": { "type": "number" },
+        "isCompleted": { "type": "boolean" },
+        "badge": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "title", "targetSavingLitres"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile records"
+    },
+    "/households/{householdId}": {
+      "schema": "Household",
+      "description": "Household settings for user"
+    },
+    "/householdMembers/{memberId}": {
+      "schema": "HouseholdMember",
+      "description": "Individual members belonging to user household"
+    },
+    "/activityLogs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "Individual water activity consumption logs"
+    },
+    "/dailyUsageLogs/{dailyId}": {
+      "schema": "DailyUsageLog",
+      "description": "Aggregated daily water consumption totals"
+    },
+    "/challenges/{challengeId}": {
+      "schema": "Challenge",
+      "description": "Challenges and achievement badges"
+    }
+  }
+}
